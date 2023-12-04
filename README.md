@@ -7,8 +7,8 @@
 
 [![Changelog](https://img.shields.io/github/v/release/zerolink-io/zerolink-python?label=changelog)](https://github.com/zerolink-io/zerolink-python/blob/main/Changelog.md)
 [![Python 3.x](https://img.shields.io/pypi/pyversions/pandas.svg?logo=python&logoColor=white)](https://zerolink.io)
-[![Tests](https://github.com/zerolink-io/morpheus-lib/actions/workflows/python-package.yml/badge.svg)](https://github.com/zerolink-io/morpheus-lib/actions/workflows/python-package.yml)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/zerolink-io/morpheus-lib/blob/main/LICENSE)
+[![Tests](https://github.com/zerolink-io/zerolink-python/actions/workflows/python-package.yml/badge.svg)](https://github.com/zerolink-io/zerolink-python/actions/workflows/python-package.yml)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/zerolink-io/zerolink-python/blob/main/LICENSE)
 <!--
 [![PyPI](https://img.shields.io/pypi/v/zerolink.svg)](https://pypi.org/project/zerolink/)
 -->
