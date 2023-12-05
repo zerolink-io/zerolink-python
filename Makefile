@@ -16,4 +16,6 @@ client:
 	# Horible hack to fix the generated code per a bug
 	# https://github.com/openapi-generators/openapi-python-client/issues/791
 	git checkout zero_link_client/models/entity.py
+	# Another horrible hack to fix the generated code bug with datetimes
+	git checkout zero_link_client/models/attribute.py
 	isort -q zero_link_client

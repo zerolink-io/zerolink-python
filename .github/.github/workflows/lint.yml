@@ -1,0 +1,42 @@
+
+name: Lint
+
+on: [push]
+
+jobs:
+  lint:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.9
+
+    - name: Install poetry
+      uses: abatilo/actions-poetry@v2
+    - name: Setup a local virtual environment (if no poetry.toml file)
+      run: |
+        poetry config virtualenvs.create true --local
+        poetry config virtualenvs.in-project true --local
+
+    - uses: actions/cache@v3
+      name: Define a cache for the virtual environment based on the dependencies lock file
+      with:
+        path: ./.venv
+        key: venv-${{ hashFiles('poetry.lock') }}
+
+    - name: Install the project dependencies
+      run: |
+        poetry install --no-interaction --no-ansi --no-root --with=dev
+
+    - name: Run Ruff
+      #continue-on-error: true
+      run: poetry run ruff zerolink
+
+    - name: Run MyPy
+      run: poetry run mypy zerolink --exclude "zero_link_client/models"

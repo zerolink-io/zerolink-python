@@ -100,7 +100,7 @@ def test_question(kg):
 
 
 @pytest.mark.skip_ci
-def test_onology():
+def test_ontology():
     e1 = zl.foundation.entity("China")
     result = zl.ontology(e1.id)
     assert result is not None

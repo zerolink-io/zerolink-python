@@ -4,7 +4,6 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.attribute_type import AttributeType
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
   from ..models.date import Date
@@ -27,14 +26,12 @@ class Attribute:
     """ 
         Attributes:
             type (AttributeType): An enumeration.
-            value (Union[Unset, Any]):
-            value_type (Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText',
-                'URL', Unset]):
+            value (Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText',
+                'URL']):
      """
 
     type: AttributeType
-    value: Union[Unset, Any] = UNSET
-    value_type: Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText', 'URL', Unset] = UNSET
+    value: Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText', 'URL']
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
@@ -47,45 +44,28 @@ class Attribute:
         from ..models.monolingual_text import MonolingualText
         type = self.type.value
 
-        value = self.value
-        value_type: Union[Dict[str, Any], Unset]
-        if isinstance(self.value_type, Unset):
-            value_type = UNSET
+        value: Dict[str, Any]
 
-        elif isinstance(self.value_type, MonolingualText):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        if isinstance(self.value, MonolingualText):
+            value = self.value.to_dict()
 
-        elif isinstance(self.value_type, GPS):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        elif isinstance(self.value, GPS):
+            value = self.value.to_dict()
 
-        elif isinstance(self.value_type, Date):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        elif isinstance(self.value, Date):
+            value = self.value.to_dict()
 
-        elif isinstance(self.value_type, Datetime):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        elif isinstance(self.value, Datetime):
+            value = self.value.to_dict()
 
-        elif isinstance(self.value_type, DimensionlessQuantity):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        elif isinstance(self.value, DimensionlessQuantity):
+            value = self.value.to_dict()
 
-        elif isinstance(self.value_type, DimensionalQuantity):
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+        elif isinstance(self.value, DimensionalQuantity):
+            value = self.value.to_dict()
 
         else:
-            value_type = UNSET
-            if not isinstance(self.value_type, Unset):
-                value_type = self.value_type.to_dict()
+            value = self.value.to_dict()
 
 
 
@@ -94,11 +74,8 @@ class Attribute:
         field_dict.update(self.additional_properties)
         field_dict.update({
             "type": type,
+            "value": value,
         })
-        if value is not UNSET:
-            field_dict["value"] = value
-        if value_type is not UNSET:
-            field_dict["value_type"] = value_type
 
         return field_dict
 
@@ -119,121 +96,81 @@ class Attribute:
 
 
 
-        value = d.pop("value", UNSET)
-
-        def _parse_value_type(data: object) -> Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText', 'URL', Unset]:
-            if isinstance(data, Unset):
-                return data
+        def _parse_value(data: object) -> Union['Date', 'Datetime', 'DimensionalQuantity', 'DimensionlessQuantity', 'GPS', 'MonolingualText', 'URL']:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_0 = data
-                value_type_type_0: Union[Unset, MonolingualText]
-                if isinstance(_value_type_type_0,  Unset):
-                    value_type_type_0 = UNSET
-                else:
-                    value_type_type_0 = MonolingualText.from_dict(_value_type_type_0)
+                value_type_0 = MonolingualText.from_dict(data)
 
 
 
-                return value_type_type_0
+                return value_type_0
             except: # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_1 = data
-                value_type_type_1: Union[Unset, GPS]
-                if isinstance(_value_type_type_1,  Unset):
-                    value_type_type_1 = UNSET
-                else:
-                    value_type_type_1 = GPS.from_dict(_value_type_type_1)
+                value_type_1 = GPS.from_dict(data)
 
 
 
-                return value_type_type_1
+                return value_type_1
             except: # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_2 = data
-                value_type_type_2: Union[Unset, Date]
-                if isinstance(_value_type_type_2,  Unset):
-                    value_type_type_2 = UNSET
-                else:
-                    value_type_type_2 = Date.from_dict(_value_type_type_2)
+                value_type_2 = Date.from_dict(data)
 
 
 
-                return value_type_type_2
+                return value_type_2
             except: # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_3 = data
-                value_type_type_3: Union[Unset, Datetime]
-                if isinstance(_value_type_type_3,  Unset):
-                    value_type_type_3 = UNSET
-                else:
-                    value_type_type_3 = Datetime.from_dict(_value_type_type_3)
+                value_type_3 = Datetime.from_dict(data)
 
 
 
-                return value_type_type_3
+                return value_type_3
             except: # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_4 = data
-                value_type_type_4: Union[Unset, DimensionlessQuantity]
-                if isinstance(_value_type_type_4,  Unset):
-                    value_type_type_4 = UNSET
-                else:
-                    value_type_type_4 = DimensionlessQuantity.from_dict(_value_type_type_4)
+                value_type_4 = DimensionlessQuantity.from_dict(data)
 
 
 
-                return value_type_type_4
+                return value_type_4
             except: # noqa: E722
                 pass
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                _value_type_type_5 = data
-                value_type_type_5: Union[Unset, DimensionalQuantity]
-                if isinstance(_value_type_type_5,  Unset):
-                    value_type_type_5 = UNSET
-                else:
-                    value_type_type_5 = DimensionalQuantity.from_dict(_value_type_type_5)
+                value_type_5 = DimensionalQuantity.from_dict(data)
 
 
 
-                return value_type_type_5
+                return value_type_5
             except: # noqa: E722
                 pass
             if not isinstance(data, dict):
                 raise TypeError()
-            _value_type_type_6 = data
-            value_type_type_6: Union[Unset, URL]
-            if isinstance(_value_type_type_6,  Unset):
-                value_type_type_6 = UNSET
-            else:
-                value_type_type_6 = URL.from_dict(_value_type_type_6)
+            value_type_6 = URL.from_dict(data)
 
 
 
-            return value_type_type_6
+            return value_type_6
 
-        value_type = _parse_value_type(d.pop("value_type", UNSET))
+        value = _parse_value(d.pop("value"))
 
 
         attribute = cls(
             type=type,
             value=value,
-            value_type=value_type,
         )
 
         attribute.additional_properties = d
