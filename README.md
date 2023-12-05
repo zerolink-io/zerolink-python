@@ -294,8 +294,8 @@ for answer in result:
 ```
 
 The extraction model depends on a set of assumptions to contextualize the
-entities in a given text. To set the extraction model use the model argument
-and select on of the given text models `BASE`, `FINANCE`, `GENOMICS`,
+entities in a given text. To set the extraction model use the `model` argument
+and select one of the given text models `BASE`, `FINANCE`, `GENOMICS`,
 `INSURANCE`, or `LEGAL`. Base is the most general model and will work on a wide
 variety of texts.
 
