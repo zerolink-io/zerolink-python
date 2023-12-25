@@ -170,21 +170,6 @@ tests = ["attrs[tests-no-zope]", "zope-interface"]
 tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-xdist[psutil]"]
 
 [[package]]
-name = "autoflake"
-version = "2.2.1"
-description = "Removes unused imports and unused variables"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "autoflake-2.2.1-py3-none-any.whl", hash = "sha256:265cde0a43c1f44ecfb4f30d95b0437796759d07be7706a2f70e4719234c0f79"},
-    {file = "autoflake-2.2.1.tar.gz", hash = "sha256:62b7b6449a692c3c9b0c916919bbc21648da7281e8506bcf8d3f8280e431ebc1"},
-]
-
-[package.dependencies]
-pyflakes = ">=3.0.0"
-tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
-
-[[package]]
 name = "babel"
 version = "2.13.1"
 description = "Internationalization utilities"
@@ -872,23 +857,6 @@ files = [
 
 [package.dependencies]
 arrow = ">=0.15.0"
-
-[[package]]
-name = "isort"
-version = "5.12.0"
-description = "A Python utility / library to sort Python imports."
-optional = false
-python-versions = ">=3.8.0"
-files = [
-    {file = "isort-5.12.0-py3-none-any.whl", hash = "sha256:f84c2818376e66cf843d497486ea8fed8700b340f308f076c6fb1229dff318b6"},
-    {file = "isort-5.12.0.tar.gz", hash = "sha256:8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504"},
-]
-
-[package.extras]
-colors = ["colorama (>=0.4.3)"]
-pipfile-deprecated-finder = ["pip-shims (>=0.5.2)", "pipreqs", "requirementslib"]
-plugins = ["setuptools"]
-requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jedi"
@@ -1635,28 +1603,27 @@ files = [
 
 [[package]]
 name = "openapi-python-client"
-version = "0.15.2"
+version = "0.16.1"
 description = "Generate modern Python clients from OpenAPI"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "openapi_python_client-0.15.2-py3-none-any.whl", hash = "sha256:240ff6e571eecd81758410cb743c24b6cabc4d30a3fd79cd886feeb8960610c5"},
-    {file = "openapi_python_client-0.15.2.tar.gz", hash = "sha256:a0ff88cd142f907277c333fa4e3bb9461ebfd8e58bad1bbccdd8f14dc3c311e7"},
+    {file = "openapi_python_client-0.16.1-py3-none-any.whl", hash = "sha256:61d2601df3abb1723919444434ade016e4512438846623758e79c1c1ea3ee8e6"},
+    {file = "openapi_python_client-0.16.1.tar.gz", hash = "sha256:bb5803a10a27a00158daf1c23311facc02fd68471c91631165dce8f2f3161607"},
 ]
 
 [package.dependencies]
 attrs = ">=21.3.0"
-autoflake = ">=1.4,<3.0.0"
-black = ">=23"
 colorama = {version = ">=0.4.3,<0.5.0", markers = "sys_platform == \"win32\""}
-httpx = ">=0.20.0,<0.26.0"
-isort = ">=5.0.5,<6.0.0"
+httpx = ">=0.20.0,<0.27.0"
 jinja2 = ">=3.0.0,<4.0.0"
 pydantic = ">=2.1.1,<3.0.0"
 python-dateutil = ">=2.8.1,<3.0.0"
 PyYAML = ">=6.0,<7.0"
+ruff = ">=0.1.2,<0.2.0"
 shellingham = ">=1.3.2,<2.0.0"
 typer = ">0.6,<0.10"
+typing-extensions = ">=4.8.0,<5.0.0"
 
 [[package]]
 name = "openpyxl"
@@ -2071,17 +2038,6 @@ files = [
 
 [package.dependencies]
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
-
-[[package]]
-name = "pyflakes"
-version = "3.1.0"
-description = "passive checker of Python programs"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "pyflakes-3.1.0-py2.py3-none-any.whl", hash = "sha256:4132f6d49cb4dae6819e5379898f2b8cce3c5f23994194c24b77d5da2e36f774"},
-    {file = "pyflakes-3.1.0.tar.gz", hash = "sha256:a0aae034c444db0071aa077972ba4768d40c830d9539fd45bf4cd3f8f6992efc"},
-]
 
 [[package]]
 name = "pygments"
@@ -2954,4 +2910,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "838fb0434ab44cd6ccfabf191b4dddb0bfc912e5ddcb62489434b5695b5b3033"
+content-hash = "42790351d9691952a9b8389fabf69837f8b6d211367822e37b2c940223a25b17"
