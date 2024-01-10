@@ -14,6 +14,6 @@ def test_lib():
 
 
 def test_client():
-    import zero_link_client
+    import zerolink_client
 
     pass

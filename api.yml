@@ -1,0 +1,5 @@
+package_name_override: zerolink_client
+post_hooks:
+   #- "ruff check . --fix"
+   - "ruff format ."
+   - "isort -q ."

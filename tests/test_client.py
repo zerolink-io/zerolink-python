@@ -60,6 +60,17 @@ def test_create_user_fact(kg):
     assert len(kg.entities) >= 2
     assert len(kg.facts) >= 1
 
+@pytest.mark.skip_ci
+def test_create_fact(kg):
+    e1 = zl.foundation.entity_id("E1")
+    e2 = zl.foundation.entity_id("E2")
+    assert e1 is not None
+    assert e2 is not None
+
+    f1 = kg.add_fact(e1, "spouse", e2)
+    assert f1 is not None
+    assert f1.id is not None
+    assert len(kg.facts) >= 1
 
 @pytest.mark.skip_ci
 def test_create_user_entity_types(kg):
@@ -76,6 +87,12 @@ def test_entity_search():
     result = list(zl.find_entity("China"))
     assert result is not None
     assert len(result) > 0
+
+
+@pytest.mark.skip_ci
+def test_entity_id_search():
+    result = zl.foundation.entity_id("E7")
+    assert result is not None
 
 
 @pytest.mark.skip_ci
@@ -149,5 +166,5 @@ def test_attribute(kg):
     e1.add_attribute("height", d4)
 
     # dimensional quantity
-    d5 = zerolink.attribute.dimensional_quantity(3.1415926, "meters")
+    d5 = zerolink.attribute.quantity(42, "meters")
     e1.add_attribute("height", d5)

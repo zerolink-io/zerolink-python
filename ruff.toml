@@ -1,2 +1,0 @@
-line-length = 160
-extend-exclude = ["zero_link_client", "tests"]

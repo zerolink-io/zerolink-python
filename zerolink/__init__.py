@@ -1,9 +1,3 @@
-from zero_link_client.models import (
-    EntityType,
-    SpatialAssumption,
-    TemporalAssumption,
-    WorldAssumption,
-)
 from zerolink.api import (
     ask,
     create_kg,
@@ -15,11 +9,19 @@ from zerolink.api import (
     get_kg,
     ontology,
 )
+from zerolink.attribute import quantity
 from zerolink.exc import APIError
 from zerolink.extract import read_docx
 from zerolink.foundation import foundation
 from zerolink.req import get_desc_entity, get_user_id
 from zerolink.settings import read_api_key
+from zerolink_client.models import (
+    ContextAssumption,
+    EntityType,
+    SpatialAssumption,
+    TemporalAssumption,
+    WorldAssumption,
+)
 
 api_key = read_api_key()
 
@@ -38,9 +40,11 @@ __all__ = [
     "read_docx",
     "fine_tune",
     "extract_text",
+    "quantity",
     "APIError",
     "EntityType",
     "SpatialAssumption",
     "TemporalAssumption",
     "WorldAssumption",
+    "ContextAssumption",
 ]

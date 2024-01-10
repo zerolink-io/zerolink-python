@@ -1,26 +1,28 @@
+import json
 import os
 from typing import Any, Generator, List, Optional, Union
 
 import zerolink.attribute as attr
 import zerolink.req as req
-from zero_link_client.models import (
+from zerolink.extract import read_docx
+from zerolink.settings import api_key
+from zerolink_client.models import (
     AttributeType,
+    ContextAssumption,
     CreateAttribute,
     CreateEntity,
     CreateRule,
     CreateRuleContext,
     CreateTriple,
+    EntityType,
     ExtractModel,
+    ResultStatus,
     SpatialAssumption,
     TemporalAssumption,
     TextExtract,
     WorldAssumption,
-    EntityType,
-    ResultStatus,
 )
-from zero_link_client.types import File
-from zerolink.extract import read_docx
-from zerolink.settings import api_key
+from zerolink_client.types import File
 
 # ------------------------------------------------------------------------
 # Entities
@@ -128,11 +130,11 @@ class Entity(object):
         # foundation entity
         return self.id.startswith("EU")
 
-    def ontology(self):
+    def ontology(self) -> dict[str, Any]:
         return ontology(self.id)
 
     def __str__(self) -> str:
-        return f"{self.name} : ({self.id})"
+        return f"{self.name} : ({self.id}) - {self.description}"
 
     def __repr__(self) -> str:
         return f'<Entity id="{self.id}" name="{self.name}" description="{self.description}">'
@@ -178,7 +180,7 @@ class Fact(object):
 
 class KnowledgeGraph(object):
     name: str
-    session_id: int
+    session_id: Optional[int]
 
     def __repr__(self):
         return f'<KnowledgeGraph name="{self.name}" session_id="{self.session_id}">'
@@ -186,13 +188,25 @@ class KnowledgeGraph(object):
     def ask(
         self,
         question: str,
-        spatial_assumption: SpatialAssumption = SpatialAssumption.EARTH,
-        temporal_assumption: TemporalAssumption = TemporalAssumption.CURRENT,
+        spatial: SpatialAssumption = SpatialAssumption.EARTH,
+        temporal: TemporalAssumption = TemporalAssumption.CURRENT,
         world: WorldAssumption = WorldAssumption.PARTIAL,
+        context: ContextAssumption = ContextAssumption.GLOBAL,
         reasoners: Optional[list[str]] = None,
+        dump_interpretation: bool = True,
         **kwargs,
     ) -> "Result":
-        rep = req.ask_question(self.session_id, question, **kwargs)
+        assumps = {
+            "spatial": spatial,
+            "temporal": temporal,
+            "world": world,
+            "context": context,
+        }
+        rep = req.ask_question(self.session_id, question, assumps, **kwargs)
+
+        if rep.query and dump_interpretation:
+            print("Interpretation:")
+            print(json.dumps(rep.query.to_dict(), indent=4))
 
         if rep is None:
             return Result(data=[], status=ResultStatus.EMPTY)
@@ -203,7 +217,10 @@ class KnowledgeGraph(object):
             return Result(data=[], status=ResultStatus.EMPTY)
 
     def add_entity(
-        self, name: str, type: Optional[Union[EntityType, Entity, str]] = None
+        self,
+        name: str,
+        type: Optional[Union[EntityType, Entity, str]] = None,
+        description: Optional[str] = None,
     ) -> Entity:
         raise ValueError("Cannot add entity to a read-only knowledge graph")
 
@@ -234,6 +251,7 @@ class Foundation(KnowledgeGraph):
 
     def __init__(self) -> None:
         self.name = "Foundation"
+        self.session_id = None
 
     def entity(self, name: str) -> Entity:
         """
@@ -244,6 +262,14 @@ class Foundation(KnowledgeGraph):
             raise ValueError(f"Entity '{name}' not found")
         else:
             return ents[0]
+
+    def entity_id(self, id: str) -> Entity:
+        """
+        Get a foundation entity by id.
+        """
+        e = req.get_entity_id(id)
+        desc = e.description if e.description else None
+        return Entity(e.id, e.entity, desc)
 
     def property(self, name: str) -> Relation:
         """
@@ -281,6 +307,8 @@ class UserKnowledgeGraph(KnowledgeGraph):
     A knowledge graph is a collection of entities and relations.
     """
 
+    session_id: int
+
     def __init__(self, session_id: int, name: str):
         self.name = name
         self.session_id = session_id
@@ -301,7 +329,10 @@ class UserKnowledgeGraph(KnowledgeGraph):
         ]
 
     def add_entity(
-        self, name: str, type: Optional[Union[EntityType, Entity, str]] = None
+        self,
+        name: str,
+        type: Optional[Union[EntityType, Entity, str]] = None,
+        description: Optional[str] = None,
     ) -> Entity:
         if isinstance(type, EntityType):
             body = CreateEntity(name, entity_type=type)
@@ -355,11 +386,20 @@ class UserKnowledgeGraph(KnowledgeGraph):
         if o.id == s.id:
             raise ValueError("Subject and object cannot be the same")
 
-        body = CreateTriple(
-            user_subject=s.id,
-            predicate=p,
-            user_object=o.id,
-        )
+        bargs = {}
+
+        if o.user_entity:
+            bargs["user_object"] = o.id
+        else:
+            bargs["object_"] = o.id
+
+        if s.user_entity:
+            bargs["user_subject"] = s.id
+        else:
+            bargs["subject"] = s.id
+
+        body = CreateTriple(predicate=p, **bargs)
+
         rep = req.add_triple(self.session_id, body)
         return Fact(
             id=rep.id, subject=rep.subject, predicate=rep.predicate, object=rep.object_
@@ -451,12 +491,12 @@ class Result(object):
     A result is the response to a question.
     """
 
-    def __init__(self, data: List[Entity], status: ResultStatus):
+    def __init__(self, data: List[str], status: ResultStatus):
         self.data = data
         self.status = status
 
     @property
-    def value(self) -> Entity:
+    def value(self) -> str:
         if self.success() and len(self.data) == 1:
             return self.data[0]
         else:
@@ -543,7 +583,7 @@ def get_kg(name: str) -> KnowledgeGraph:
         return UserKnowledgeGraph(rep.id, rep.name)
 
 
-def ontology(eid: str):
+def ontology(eid: str) -> dict[str, Any]:
     """
     Return the ontology of the knowledge graph.
     """
@@ -594,6 +634,9 @@ def find_triples(
 
 
 def fine_tune(file: str) -> str:
+    """
+    Upload a training dataset to fine tune the reasoning model.
+    """
     if os.path.exists(file):
         # open the file and get the bytes
         fbody = File(open(file, "rb"))

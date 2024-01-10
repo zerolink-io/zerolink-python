@@ -55,7 +55,7 @@ If you are a ZeroLink Enterprise customer set `server_url` in ZeroLink config
 to your private cloud deploy. For example:
 
 ```bash
-% zerolink config set server_url zerolink-526947398.us-east-1.elb.amazonaws.com
+% zerolink config set server_url https://zerolink-526947398.us-east-1.elb.amazonaws.com
 % zerolink config set enable_aws true
 ```
 
@@ -80,11 +80,12 @@ print(result.first())
 
 ## Foundation
 
-The **Foundation** knowledge graph and ontology contains a curated collection
-of over 17 billion entities, facts, attributes, relations and reasoners that
-make up a fundamental world model that can serve as the foundation to user
-knowledge models. The data is derived from [CC0 sources](https://creativecommons.org/public-domain/cc0/), 
-and incorporates a computable form of the entire Wikipedia corpus.
+The **Foundation** knowledge graph and ontology contains a curated collection of
+over 17 billion [entities](https://github.com/zerolink-io/zerolink-python/blob/main/zerolink_client/models/entity_type.py),
+facts, attributes, relations and reasoners that make up a fundamental world
+model that can serve as the foundation to user knowledge models. The data is
+derived from [CC0 sources](https://creativecommons.org/public-domain/cc0/), and
+incorporates a computable form of the entire Wikipedia corpus.
 
 <div align="center">
 <img src="./images/foundation.png" width="500px">
@@ -335,7 +336,7 @@ Commands:
   completion   Generate shell completions.
   config       Configuration options.
   connectors   Connector operations.
-  embedding    Graph embedding operations.
+  embedding    Graph query embedding operations.
   fine-tuning  RLHF and fine-tuning API.
   key          Set the api key.
 ```

@@ -32,7 +32,7 @@ def main():
 @click.group()
 def embedding():
     """
-    Graph embedding operations.
+    Graph query embedding operations.
     """
     pass
 

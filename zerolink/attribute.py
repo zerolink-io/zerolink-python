@@ -1,7 +1,7 @@
 import datetime
 from typing import Any
 
-from zero_link_client.models import (
+from zerolink_client.models import (
     GPS,
     URL,
     Attribute,
@@ -13,12 +13,16 @@ from zero_link_client.models import (
     MonolingualText,
 )
 
-__all__ = ["url", "gps", "value"]
+__all__ = ["url", "gps", "quantity", "value"]
 
 
 def url(x: str) -> URL:
     """
     Create a URL object.
+
+    Examples:
+
+    >>> url("https://www.google.com")
     """
     return URL(x)
 
@@ -26,14 +30,24 @@ def url(x: str) -> URL:
 def gps(latitude: float, longitude: float) -> GPS:
     """
     Create a GPS coordinate object.
+
+    Examples:
+
+    >>> gps(39.9042, 116.4074)
     """
     return GPS(latitude=latitude, longitude=longitude)
 
 
-def dimensional_quantity(value: float, unit: str) -> DimensionalQuantity:
+def quantity(value: float, unit: str) -> DimensionalQuantity:
     """
     Unit is either a string of a formula of SI units. Or an EID number of an
     entity to use as the unit (i.e. people, products, etc.)
+
+    Examples:
+
+    >>> quantity(1.0, "meter")
+    >>> quantity(2.0, "human")
+    >>> quantity(3.0, "meter / second")
     """
     if isinstance(value, int):
         val = DimensionlessQuantity(value=str(value), integer=True)
@@ -45,6 +59,17 @@ def dimensional_quantity(value: float, unit: str) -> DimensionalQuantity:
 def value(x: Any) -> Attribute:
     """
     Create an Attribute object polymorphically.
+
+    Examples:
+
+    >>> value("The quick brown fox jumps over the lazy dog.")
+    >>> value(100_000)
+    >>> value(3.1415926)
+    >>> value(gps(39.9042, 116.4074))
+    >>> value(url("https://www.google.com"))
+    >>> value(datetime.date(1946, 7, 6))
+    >>> value(datetime(2019, 5, 18, 15, 17, 8, 132263))
+    >>> value(quantity(1.0, "meter"))
     """
     if isinstance(x, str):
         v0 = MonolingualText(language="en", text=x)

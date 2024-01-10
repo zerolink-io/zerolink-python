@@ -1,30 +1,33 @@
-from typing import Optional, cast
+from typing import Any, Optional, cast
 
-from zero_link_client import Client
-from zero_link_client.api.default import finetune, get_models_models_get
-from zero_link_client.api.entity import (
+from zerolink import settings
+from zerolink.exc import APIError, AuthenticationError
+from zerolink_client import Client
+from zerolink_client.api.default import finetune, get_models_models_get
+from zerolink_client.api.entity import (
+    desc_entity_id,
     desc_entity_ontology,
     lookup_entity,
     lookup_relation,
     search_entity,
 )
-from zero_link_client.api.extract import extract_text
-from zero_link_client.api.fact import (
+from zerolink_client.api.extract import extract_text
+from zerolink_client.api.fact import (
     create_userattribute,
     create_userentity,
     create_userrule,
     create_usertriple,
 )
-from zero_link_client.api.kg import get_triple
-from zero_link_client.api.question import post_question
-from zero_link_client.api.session import (
+from zerolink_client.api.kg import get_triple
+from zerolink_client.api.question import post_question
+from zerolink_client.api.session import (
     create_session,
     get_session_entities,
     get_session_facts,
     get_user_session,
 )
-from zero_link_client.api.user import create_user
-from zero_link_client.models import (  # BodyFinetune,
+from zerolink_client.api.user import create_user
+from zerolink_client.models import (
     ChatSession,
     CreateAttribute,
     CreateEntity,
@@ -32,13 +35,13 @@ from zero_link_client.models import (  # BodyFinetune,
     CreateRuleResponse,
     CreateTriple,
     CreateTuneJobResponse,
+    Entity,
     HTTPValidationError,
     Question,
+    QuestionResponse,
     TextExtract,
 )
-from zero_link_client.types import File
-from zerolink import settings
-from zerolink.exc import APIError, AuthenticationError
+from zerolink_client.types import File
 
 # ------------------------------------------------------------------------
 # Endpoints
@@ -131,7 +134,12 @@ def get_session_facts_list(session_id: int, **kwargs):
         raise APIError(err)
 
 
-def ask_question(session_id: int, body: str, **kwargs):
+def ask_question(
+    session_id: Optional[int],
+    body: str,
+    assumps: Optional[dict[str, Any]] = None,
+    **kwargs,
+) -> QuestionResponse:
     """
     Ask a question.
     """
@@ -139,11 +147,29 @@ def ask_question(session_id: int, body: str, **kwargs):
     rep = post_question.sync_detailed(
         client=client,
         session_id=session_id,
-        json_body=Question(body=body),
+        json_body=Question(body=body, **(assumps or {})),
         **kwargs,
     )
     if rep.status_code == 200:
-        return rep.parsed
+        return cast(QuestionResponse, rep.parsed)
+    else:
+        err = rep.content.decode("utf-8")
+        print(err)
+        raise APIError(err)
+
+
+def get_entity_id(id: str, **kwargs) -> Entity:
+    """
+    Get the description of an entity by eid.
+    """
+    check_api_key()
+    rep = desc_entity_id.sync_detailed(
+        client=client,
+        id=id,
+        **kwargs,
+    )
+    if rep.status_code == 200:
+        return cast(Entity, rep.parsed)
     else:
         err = rep.content.decode("utf-8")
         print(err)
@@ -204,7 +230,7 @@ def get_search_relation(name: str, **kwargs):
         raise APIError(err)
 
 
-def get_ontology(name: str, **kwargs):
+def get_ontology(name: str, **kwargs) -> dict[str, Any]:
     """
     Get the ontology of an entity.
     """
@@ -215,7 +241,7 @@ def get_ontology(name: str, **kwargs):
         **kwargs,
     )
     if rep.status_code == 200:
-        return rep.parsed
+        return cast(dict[str, Any], rep.parsed)
     else:
         err = rep.content.decode("utf-8")
         print(err)

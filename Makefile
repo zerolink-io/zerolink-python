@@ -11,11 +11,20 @@ upload:
 
 client:
 	cp ../../Demo/openapi.json ./
-	rm -rf zero_link_client
-	poetry run openapi-python-client generate --path openapi.json --meta none
+	rm -rf zerolink_client
+	#poetry run openapi-python-client generate --path openapi.json --meta none
+	poetry run openapi-python-client generate --config api.yml --path openapi.json --meta none
 	# Horible hack to fix the generated code per a bug
 	# https://github.com/openapi-generators/openapi-python-client/issues/791
-	git checkout zero_link_client/models/entity.py
+	#git checkout zerolink_client/models/entity.py
 	# Another horrible hack to fix the generated code bug with datetimes
-	git checkout zero_link_client/models/attribute.py
-	isort -q zero_link_client
+	git checkout zerolink_client/models/attribute.py
+	git checkout zerolink_client/models/__init__.py
+	git checkout zerolink_client/models/date.py
+	git checkout zerolink_client/models/datetime_.py
+	git checkout zerolink_client/models/dimensional_quantity.py
+	git checkout zerolink_client/models/dimensionless_quantity.py
+	git checkout zerolink_client/models/gps.py
+	git checkout zerolink_client/models/monolingual_text.py
+	git checkout zerolink_client/models/url.py
+	#isort -q zerolink_client
