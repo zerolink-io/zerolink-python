@@ -38,10 +38,15 @@ class Entity:
         from ..models.graph import Graph
 
         id = self.id
+
         entity = self.entity
+
         description = self.description
+
         source = self.source
+
         source_url = self.source_url
+
         ontology: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.ontology, Unset):
             ontology = self.ontology.to_dict()

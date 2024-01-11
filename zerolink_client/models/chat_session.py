@@ -41,18 +41,19 @@ class ChatSession:
         from ..models.req import Req
 
         id = self.id
+
         name = self.name
+
         index = self.index
+
         requests = []
         for requests_item_data in self.requests:
             requests_item = requests_item_data.to_dict()
-
             requests.append(requests_item)
 
         responses = []
         for responses_item_data in self.responses:
             responses_item = responses_item_data.to_dict()
-
             responses.append(responses_item)
 
         created_on = self.created_on.isoformat()

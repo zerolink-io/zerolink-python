@@ -40,7 +40,9 @@ class QuestionResponse:
         from ..models.question_response_query import QuestionResponseQuery
 
         id = self.id
+
         msg = self.msg
+
         status = self.status.value
 
         answers = self.answers

@@ -29,6 +29,7 @@ class Assertion:
         from ..models.assertion_context import AssertionContext
 
         body = self.body
+
         context: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.context, Unset):
             context = self.context.to_dict()

@@ -17,7 +17,7 @@ class CreateEntity:
         entity_type (Union[Unset, EntityType]): Entity types are entities that map to base ontological entities in
             Foundation.
         entity_str (Union[Unset, str]): User specified type
-        is_class (Union[Unset, bool]): Whether the entity is a class or instance
+        is_class (Union[Unset, bool]): Whether the entity is a class or instance Default: False.
     """
 
     entity: str
@@ -28,11 +28,13 @@ class CreateEntity:
 
     def to_dict(self) -> Dict[str, Any]:
         entity = self.entity
+
         entity_type: Union[Unset, str] = UNSET
         if not isinstance(self.entity_type, Unset):
             entity_type = self.entity_type.value
 
         entity_str = self.entity_str
+
         is_class = self.is_class
 
         field_dict: Dict[str, Any] = {}

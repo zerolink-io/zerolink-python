@@ -26,8 +26,11 @@ class Match:
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
+
         id = self.id
+
         desc = self.desc
+
         score = self.score
 
         field_dict: Dict[str, Any] = {}

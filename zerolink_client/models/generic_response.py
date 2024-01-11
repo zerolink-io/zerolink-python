@@ -22,6 +22,7 @@ class GenericResponse:
 
     def to_dict(self) -> Dict[str, Any]:
         detail = self.detail
+
         success = self.success
 
         field_dict: Dict[str, Any] = {}

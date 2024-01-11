@@ -14,13 +14,15 @@ def _get_kwargs(
     user_id: str,
     session_name: str,
 ) -> Dict[str, Any]:
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/user/{user_id}/session/{session_name}".format(
             user_id=user_id,
             session_name=session_name,
         ),
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[ChatSession, HTTPValidationError]]:

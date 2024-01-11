@@ -16,23 +16,24 @@ def _get_kwargs(
     file: Union[File, str],
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
-    json_file: Union[FileJsonType, str]
 
+    json_file: Union[FileJsonType, str]
     if isinstance(file, File):
         json_file = file.to_tuple()
 
     else:
         json_file = file
-
     params["file"] = json_file
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/finetune",
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[CreateTuneJobResponse, HTTPValidationError]]:

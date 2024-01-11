@@ -23,6 +23,7 @@ class TextExtract:
 
     def to_dict(self) -> Dict[str, Any]:
         text = self.text
+
         extraction_model: Union[Unset, str] = UNSET
         if not isinstance(self.extraction_model, Unset):
             extraction_model = self.extraction_model.value

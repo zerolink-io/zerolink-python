@@ -48,8 +48,11 @@ class Rep:
         from ..models.proposed_fact import ProposedFact
 
         id = self.id
+
         index = self.index
+
         text = self.text
+
         type = self.type.value
 
         rep_cls = self.rep_cls.value
@@ -57,13 +60,11 @@ class Rep:
         facts = []
         for facts_item_data in self.facts:
             facts_item = facts_item_data.to_dict()
-
             facts.append(facts_item)
 
         cfacts = []
         for cfacts_item_data in self.cfacts:
             cfacts_item = cfacts_item_data.to_dict()
-
             cfacts.append(cfacts_item)
 
         answers: Union[Unset, Dict[str, Any]] = UNSET

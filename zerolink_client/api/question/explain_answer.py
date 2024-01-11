@@ -17,11 +17,12 @@ def _get_kwargs(
     session_id: int,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["session_id"] = session_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/explain/{response_id}/{answer_id}".format(
             response_id=response_id,
@@ -29,6 +30,8 @@ def _get_kwargs(
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Explanation, HTTPValidationError]]:

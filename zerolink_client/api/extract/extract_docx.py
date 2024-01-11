@@ -13,22 +13,29 @@ from ...types import UNSET, Response
 
 def _get_kwargs(
     *,
-    multipart_data: BodyExtractDocx,
+    body: BodyExtractDocx,
     session_id: int,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
+
     params: Dict[str, Any] = {}
+
     params["session_id"] = session_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    multipart_multipart_data = multipart_data.to_multipart()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/extract/docx",
-        "files": multipart_multipart_data,
         "params": params,
     }
+
+    _body = body.to_multipart()
+
+    _kwargs["files"] = _body
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
@@ -58,7 +65,7 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    multipart_data: BodyExtractDocx,
+    body: BodyExtractDocx,
     session_id: int,
 ) -> Response[Union[AssertionResponse, HTTPValidationError]]:
     """Extract Docx
@@ -67,7 +74,7 @@ def sync_detailed(
 
     Args:
         session_id (int):
-        multipart_data (BodyExtractDocx):
+        body (BodyExtractDocx):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -78,7 +85,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        multipart_data=multipart_data,
+        body=body,
         session_id=session_id,
     )
 
@@ -92,7 +99,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    multipart_data: BodyExtractDocx,
+    body: BodyExtractDocx,
     session_id: int,
 ) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
     """Extract Docx
@@ -101,7 +108,7 @@ def sync(
 
     Args:
         session_id (int):
-        multipart_data (BodyExtractDocx):
+        body (BodyExtractDocx):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,7 +120,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        multipart_data=multipart_data,
+        body=body,
         session_id=session_id,
     ).parsed
 
@@ -121,7 +128,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    multipart_data: BodyExtractDocx,
+    body: BodyExtractDocx,
     session_id: int,
 ) -> Response[Union[AssertionResponse, HTTPValidationError]]:
     """Extract Docx
@@ -130,7 +137,7 @@ async def asyncio_detailed(
 
     Args:
         session_id (int):
-        multipart_data (BodyExtractDocx):
+        body (BodyExtractDocx):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,7 +148,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        multipart_data=multipart_data,
+        body=body,
         session_id=session_id,
     )
 
@@ -153,7 +160,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    multipart_data: BodyExtractDocx,
+    body: BodyExtractDocx,
     session_id: int,
 ) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
     """Extract Docx
@@ -162,7 +169,7 @@ async def asyncio(
 
     Args:
         session_id (int):
-        multipart_data (BodyExtractDocx):
+        body (BodyExtractDocx):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -175,7 +182,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            multipart_data=multipart_data,
+            body=body,
             session_id=session_id,
         )
     ).parsed

@@ -13,23 +13,26 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     session_id: int,
     *,
-    topic: Union[Unset, None, str] = UNSET,
-    threshold: Union[Unset, None, float] = 0.4,
+    topic: Union[Unset, str] = UNSET,
+    threshold: Union[Unset, float] = 0.4,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["topic"] = topic
 
     params["threshold"] = threshold
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/session/{session_id}/kg".format(
             session_id=session_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Graph, HTTPValidationError]]:
@@ -60,8 +63,8 @@ def sync_detailed(
     session_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-    topic: Union[Unset, None, str] = UNSET,
-    threshold: Union[Unset, None, float] = 0.4,
+    topic: Union[Unset, str] = UNSET,
+    threshold: Union[Unset, float] = 0.4,
 ) -> Response[Union[Graph, HTTPValidationError]]:
     """Get Kg
 
@@ -69,8 +72,8 @@ def sync_detailed(
 
     Args:
         session_id (int):
-        topic (Union[Unset, None, str]):
-        threshold (Union[Unset, None, float]):  Default: 0.4.
+        topic (Union[Unset, str]):
+        threshold (Union[Unset, float]):  Default: 0.4.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,8 +100,8 @@ def sync(
     session_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-    topic: Union[Unset, None, str] = UNSET,
-    threshold: Union[Unset, None, float] = 0.4,
+    topic: Union[Unset, str] = UNSET,
+    threshold: Union[Unset, float] = 0.4,
 ) -> Optional[Union[Graph, HTTPValidationError]]:
     """Get Kg
 
@@ -106,8 +109,8 @@ def sync(
 
     Args:
         session_id (int):
-        topic (Union[Unset, None, str]):
-        threshold (Union[Unset, None, float]):  Default: 0.4.
+        topic (Union[Unset, str]):
+        threshold (Union[Unset, float]):  Default: 0.4.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -129,8 +132,8 @@ async def asyncio_detailed(
     session_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-    topic: Union[Unset, None, str] = UNSET,
-    threshold: Union[Unset, None, float] = 0.4,
+    topic: Union[Unset, str] = UNSET,
+    threshold: Union[Unset, float] = 0.4,
 ) -> Response[Union[Graph, HTTPValidationError]]:
     """Get Kg
 
@@ -138,8 +141,8 @@ async def asyncio_detailed(
 
     Args:
         session_id (int):
-        topic (Union[Unset, None, str]):
-        threshold (Union[Unset, None, float]):  Default: 0.4.
+        topic (Union[Unset, str]):
+        threshold (Union[Unset, float]):  Default: 0.4.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,8 +167,8 @@ async def asyncio(
     session_id: int,
     *,
     client: Union[AuthenticatedClient, Client],
-    topic: Union[Unset, None, str] = UNSET,
-    threshold: Union[Unset, None, float] = 0.4,
+    topic: Union[Unset, str] = UNSET,
+    threshold: Union[Unset, float] = 0.4,
 ) -> Optional[Union[Graph, HTTPValidationError]]:
     """Get Kg
 
@@ -173,8 +176,8 @@ async def asyncio(
 
     Args:
         session_id (int):
-        topic (Union[Unset, None, str]):
-        threshold (Union[Unset, None, float]):  Default: 0.4.
+        topic (Union[Unset, str]):
+        threshold (Union[Unset, float]):  Default: 0.4.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -32,9 +32,11 @@ class CreateFactResponse:
         from ..models.generic_entity import GenericEntity
 
         id = self.id
+
         subject = self.subject.to_dict()
 
         predicate = self.predicate
+
         object_ = self.object_.to_dict()
 
         field_dict: Dict[str, Any] = {}

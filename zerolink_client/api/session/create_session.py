@@ -13,20 +13,23 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     user_id: str,
     *,
-    name: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["name"] = name
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/session/{user_id}".format(
             user_id=user_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[ChatSession, HTTPValidationError]]:
@@ -57,7 +60,7 @@ def sync_detailed(
     user_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    name: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
 ) -> Response[Union[ChatSession, HTTPValidationError]]:
     """Create Session
 
@@ -65,7 +68,7 @@ def sync_detailed(
 
     Args:
         user_id (str):
-        name (Union[Unset, None, str]):
+        name (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -91,7 +94,7 @@ def sync(
     user_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    name: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
 ) -> Optional[Union[ChatSession, HTTPValidationError]]:
     """Create Session
 
@@ -99,7 +102,7 @@ def sync(
 
     Args:
         user_id (str):
-        name (Union[Unset, None, str]):
+        name (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -120,7 +123,7 @@ async def asyncio_detailed(
     user_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    name: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
 ) -> Response[Union[ChatSession, HTTPValidationError]]:
     """Create Session
 
@@ -128,7 +131,7 @@ async def asyncio_detailed(
 
     Args:
         user_id (str):
-        name (Union[Unset, None, str]):
+        name (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,7 +155,7 @@ async def asyncio(
     user_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    name: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
 ) -> Optional[Union[ChatSession, HTTPValidationError]]:
     """Create Session
 
@@ -160,7 +163,7 @@ async def asyncio(
 
     Args:
         user_id (str):
-        name (Union[Unset, None, str]):
+        name (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

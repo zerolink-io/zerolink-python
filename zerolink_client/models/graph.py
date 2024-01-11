@@ -36,13 +36,11 @@ class Graph:
         nodes = []
         for nodes_item_data in self.nodes:
             nodes_item = nodes_item_data.to_dict()
-
             nodes.append(nodes_item)
 
         edges = []
         for edges_item_data in self.edges:
             edges_item = edges_item_data.to_dict()
-
             edges.append(edges_item)
 
         ids = self.ids.to_dict()

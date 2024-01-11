@@ -33,12 +33,14 @@ class AssertionResponse:
         from ..models.candidate_fact import CandidateFact
 
         id = self.id
+
         msg = self.msg
+
         inappropriate = self.inappropriate
+
         cfacts = []
         for cfacts_item_data in self.cfacts:
             cfacts_item = cfacts_item_data.to_dict()
-
             cfacts.append(cfacts_item)
 
         field_dict: Dict[str, Any] = {}

@@ -41,7 +41,7 @@ from zerolink_client.models import (
     QuestionResponse,
     TextExtract,
 )
-from zerolink_client.types import File
+from zerolink_client.types import File, UNSET
 
 # ------------------------------------------------------------------------
 # Endpoints
@@ -146,8 +146,8 @@ def ask_question(
     check_api_key()
     rep = post_question.sync_detailed(
         client=client,
-        session_id=session_id,
-        json_body=Question(body=body, **(assumps or {})),
+        session_id=(session_id or UNSET),
+        body=Question(body=body, **(assumps or {})),
         **kwargs,
     )
     if rep.status_code == 200:
@@ -290,7 +290,7 @@ def add_entity(session_id: int, body: CreateEntity, **kwargs):
     rep = create_userentity.sync_detailed(
         client=client,
         session_id=session_id,
-        json_body=body,
+        body=body,
         **kwargs,
     )
     if rep.status_code == 200:
@@ -309,7 +309,7 @@ def add_triple(session_id: int, body: CreateTriple, **kwargs):
     rep = create_usertriple.sync_detailed(
         client=client,
         session_id=session_id,
-        json_body=body,
+        body=body,
         **kwargs,
     )
     if rep.status_code == 200:
@@ -327,7 +327,7 @@ def add_attribute(session_id: int, body: CreateAttribute, **kwargs):
     rep = create_userattribute.sync_detailed(
         client=client,
         session_id=session_id,
-        json_body=body,
+        body=body,
         **kwargs,
     )
     if rep.status_code == 200:
@@ -345,7 +345,7 @@ def post_rule(session_id: int, body: CreateRule, **kwargs) -> CreateRuleResponse
     rep = create_userrule.sync_detailed(
         client=client,
         session_id=session_id,
-        json_body=body,
+        body=body,
         **kwargs,
     )
     if rep.status_code == 200:
@@ -362,7 +362,7 @@ def post_extract(body: TextExtract, **kwargs):
     check_api_key()
     rep = extract_text.sync_detailed(
         client=client,
-        json_body=body,
+        body=body,
         **kwargs,
     )
     if rep.status_code == 200:

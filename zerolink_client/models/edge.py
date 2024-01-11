@@ -24,7 +24,9 @@ class Edge:
 
     def to_dict(self) -> Dict[str, Any]:
         from_ = self.from_
+
         to = self.to
+
         label = self.label
 
         field_dict: Dict[str, Any] = {}

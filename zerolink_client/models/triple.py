@@ -26,8 +26,11 @@ class Triple:
 
     def to_dict(self) -> Dict[str, Any]:
         subject = self.subject
+
         object_ = self.object_
+
         predicate = self.predicate
+
         id = self.id
 
         field_dict: Dict[str, Any] = {}

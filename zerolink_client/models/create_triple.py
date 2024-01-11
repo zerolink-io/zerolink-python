@@ -28,9 +28,13 @@ class CreateTriple:
 
     def to_dict(self) -> Dict[str, Any]:
         predicate = self.predicate
+
         user_subject = self.user_subject
+
         subject = self.subject
+
         user_object = self.user_object
+
         object_ = self.object_
 
         field_dict: Dict[str, Any] = {}

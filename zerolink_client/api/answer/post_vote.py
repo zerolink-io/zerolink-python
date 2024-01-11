@@ -19,6 +19,7 @@ def _get_kwargs(
     reason: DownvoteReason,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["session_id"] = session_id
 
     params["rep_id"] = rep_id
@@ -26,16 +27,17 @@ def _get_kwargs(
     params["code"] = code
 
     json_reason = reason.value
-
     params["reason"] = json_reason
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/response/vote",
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, PostVoteResponsePostVote]]:

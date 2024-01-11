@@ -13,22 +13,30 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    json_body: Question,
-    session_id: Union[Unset, None, int] = UNSET,
+    body: Question,
+    session_id: Union[Unset, int] = UNSET,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
+
     params: Dict[str, Any] = {}
+
     params["session_id"] = session_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/question",
-        "json": json_json_body,
         "params": params,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, QuestionResponse]]:
@@ -58,8 +66,8 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: Question,
-    session_id: Union[Unset, None, int] = UNSET,
+    body: Question,
+    session_id: Union[Unset, int] = UNSET,
 ) -> Response[Union[HTTPValidationError, QuestionResponse]]:
     r"""Post Question
 
@@ -79,9 +87,8 @@ def sync_detailed(
     * session_id : The session to answer the question in.
 
     Args:
-        session_id (Union[Unset, None, int]):
-        json_body (Question): A question to be answered by querying the knowledge graph and
-            reasoner.
+        session_id (Union[Unset, int]):
+        body (Question): A question to be answered by querying the knowledge graph and reasoner.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,7 +99,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     )
 
@@ -106,8 +113,8 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: Question,
-    session_id: Union[Unset, None, int] = UNSET,
+    body: Question,
+    session_id: Union[Unset, int] = UNSET,
 ) -> Optional[Union[HTTPValidationError, QuestionResponse]]:
     r"""Post Question
 
@@ -127,9 +134,8 @@ def sync(
     * session_id : The session to answer the question in.
 
     Args:
-        session_id (Union[Unset, None, int]):
-        json_body (Question): A question to be answered by querying the knowledge graph and
-            reasoner.
+        session_id (Union[Unset, int]):
+        body (Question): A question to be answered by querying the knowledge graph and reasoner.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,7 +147,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     ).parsed
 
@@ -149,8 +155,8 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: Question,
-    session_id: Union[Unset, None, int] = UNSET,
+    body: Question,
+    session_id: Union[Unset, int] = UNSET,
 ) -> Response[Union[HTTPValidationError, QuestionResponse]]:
     r"""Post Question
 
@@ -170,9 +176,8 @@ async def asyncio_detailed(
     * session_id : The session to answer the question in.
 
     Args:
-        session_id (Union[Unset, None, int]):
-        json_body (Question): A question to be answered by querying the knowledge graph and
-            reasoner.
+        session_id (Union[Unset, int]):
+        body (Question): A question to be answered by querying the knowledge graph and reasoner.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -183,7 +188,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     )
 
@@ -195,8 +200,8 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: Question,
-    session_id: Union[Unset, None, int] = UNSET,
+    body: Question,
+    session_id: Union[Unset, int] = UNSET,
 ) -> Optional[Union[HTTPValidationError, QuestionResponse]]:
     r"""Post Question
 
@@ -216,9 +221,8 @@ async def asyncio(
     * session_id : The session to answer the question in.
 
     Args:
-        session_id (Union[Unset, None, int]):
-        json_body (Question): A question to be answered by querying the knowledge graph and
-            reasoner.
+        session_id (Union[Unset, int]):
+        body (Question): A question to be answered by querying the knowledge graph and reasoner.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,7 +235,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
+            body=body,
             session_id=session_id,
         )
     ).parsed

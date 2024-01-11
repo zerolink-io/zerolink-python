@@ -28,8 +28,11 @@ class Req:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         index = self.index
+
         text = self.text
+
         type = self.type.value
 
         field_dict: Dict[str, Any] = {}

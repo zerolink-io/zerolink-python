@@ -29,9 +29,13 @@ class Candidate:
 
     def to_dict(self) -> Dict[str, Any]:
         entity = self.entity
+
         user_defined = self.user_defined
+
         entity_id = self.entity_id
+
         suggestion = self.suggestion
+
         description = self.description
 
         field_dict: Dict[str, Any] = {}

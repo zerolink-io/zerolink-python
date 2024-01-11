@@ -15,15 +15,18 @@ def _get_kwargs(
     user_id: str,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["user_id"] = user_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/user",
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[GetUserResponseGetUser, HTTPValidationError]]:

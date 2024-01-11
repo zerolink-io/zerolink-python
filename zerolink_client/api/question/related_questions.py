@@ -12,19 +12,25 @@ from ...types import UNSET, Response
 
 def _get_kwargs(
     *,
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
 ) -> Dict[str, Any]:
-    json_json_body = []
-    for json_body_item_data in json_body:
-        json_body_item = json_body_item_data.to_dict()
+    headers: Dict[str, Any] = {}
 
-        json_json_body.append(json_body_item)
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/related_questions/",
-        "json": json_json_body,
     }
+
+    _body = []
+    for body_item_data in body:
+        body_item = body_item_data.to_dict()
+        _body.append(body_item)
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List[str]]]:
@@ -54,14 +60,14 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
 ) -> Response[Union[HTTPValidationError, List[str]]]:
     """Related Questions
 
      Get related questions for a set of facts.
 
     Args:
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -72,7 +78,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -85,14 +91,14 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
 ) -> Optional[Union[HTTPValidationError, List[str]]]:
     """Related Questions
 
      Get related questions for a set of facts.
 
     Args:
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -104,21 +110,21 @@ def sync(
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
 ) -> Response[Union[HTTPValidationError, List[str]]]:
     """Related Questions
 
      Get related questions for a set of facts.
 
     Args:
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -129,7 +135,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -140,14 +146,14 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
 ) -> Optional[Union[HTTPValidationError, List[str]]]:
     """Related Questions
 
      Get related questions for a set of facts.
 
     Args:
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,6 +166,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

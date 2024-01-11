@@ -13,23 +13,26 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     name: str,
     *,
-    limit: Union[Unset, None, int] = 10,
-    threshold: Union[Unset, None, float] = 0.3,
+    limit: Union[Unset, int] = 10,
+    threshold: Union[Unset, float] = 0.3,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["limit"] = limit
 
     params["threshold"] = threshold
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/triple/{name}/fast".format(
             name=name,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, List["Match"]]]:
@@ -65,15 +68,15 @@ def sync_detailed(
     name: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    limit: Union[Unset, None, int] = 10,
-    threshold: Union[Unset, None, float] = 0.3,
+    limit: Union[Unset, int] = 10,
+    threshold: Union[Unset, float] = 0.3,
 ) -> Response[Union[HTTPValidationError, List["Match"]]]:
     """Get Triple Fast
 
     Args:
         name (str):
-        limit (Union[Unset, None, int]):  Default: 10.
-        threshold (Union[Unset, None, float]):  Default: 0.3.
+        limit (Union[Unset, int]):  Default: 10.
+        threshold (Union[Unset, float]):  Default: 0.3.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,15 +103,15 @@ def sync(
     name: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    limit: Union[Unset, None, int] = 10,
-    threshold: Union[Unset, None, float] = 0.3,
+    limit: Union[Unset, int] = 10,
+    threshold: Union[Unset, float] = 0.3,
 ) -> Optional[Union[HTTPValidationError, List["Match"]]]:
     """Get Triple Fast
 
     Args:
         name (str):
-        limit (Union[Unset, None, int]):  Default: 10.
-        threshold (Union[Unset, None, float]):  Default: 0.3.
+        limit (Union[Unset, int]):  Default: 10.
+        threshold (Union[Unset, float]):  Default: 0.3.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,15 +133,15 @@ async def asyncio_detailed(
     name: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    limit: Union[Unset, None, int] = 10,
-    threshold: Union[Unset, None, float] = 0.3,
+    limit: Union[Unset, int] = 10,
+    threshold: Union[Unset, float] = 0.3,
 ) -> Response[Union[HTTPValidationError, List["Match"]]]:
     """Get Triple Fast
 
     Args:
         name (str):
-        limit (Union[Unset, None, int]):  Default: 10.
-        threshold (Union[Unset, None, float]):  Default: 0.3.
+        limit (Union[Unset, int]):  Default: 10.
+        threshold (Union[Unset, float]):  Default: 0.3.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,15 +166,15 @@ async def asyncio(
     name: str,
     *,
     client: Union[AuthenticatedClient, Client],
-    limit: Union[Unset, None, int] = 10,
-    threshold: Union[Unset, None, float] = 0.3,
+    limit: Union[Unset, int] = 10,
+    threshold: Union[Unset, float] = 0.3,
 ) -> Optional[Union[HTTPValidationError, List["Match"]]]:
     """Get Triple Fast
 
     Args:
         name (str):
-        limit (Union[Unset, None, int]):  Default: 10.
-        threshold (Union[Unset, None, float]):  Default: 0.3.
+        limit (Union[Unset, int]):  Default: 10.
+        threshold (Union[Unset, float]):  Default: 0.3.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

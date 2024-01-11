@@ -13,26 +13,33 @@ from ...types import UNSET, Response
 
 def _get_kwargs(
     *,
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
     session_id: int,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
+
     params: Dict[str, Any] = {}
+
     params["session_id"] = session_id
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    json_json_body = []
-    for json_body_item_data in json_body:
-        json_body_item = json_body_item_data.to_dict()
-
-        json_json_body.append(json_body_item)
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/genfacts/accept",
-        "json": json_json_body,
         "params": params,
     }
+
+    _body = []
+    for body_item_data in body:
+        body_item = body_item_data.to_dict()
+        _body.append(body_item)
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
@@ -62,7 +69,7 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
     session_id: int,
 ) -> Response[Union[AssertionResponse, HTTPValidationError]]:
     """Accept Facts
@@ -71,7 +78,7 @@ def sync_detailed(
 
     Args:
         session_id (int):
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,7 +89,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     )
 
@@ -96,7 +103,7 @@ def sync_detailed(
 def sync(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
     session_id: int,
 ) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
     """Accept Facts
@@ -105,7 +112,7 @@ def sync(
 
     Args:
         session_id (int):
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -117,7 +124,7 @@ def sync(
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     ).parsed
 
@@ -125,7 +132,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
     session_id: int,
 ) -> Response[Union[AssertionResponse, HTTPValidationError]]:
     """Accept Facts
@@ -134,7 +141,7 @@ async def asyncio_detailed(
 
     Args:
         session_id (int):
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,7 +152,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
         session_id=session_id,
     )
 
@@ -157,7 +164,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
-    json_body: List["ProposedFact"],
+    body: List["ProposedFact"],
     session_id: int,
 ) -> Optional[Union[AssertionResponse, HTTPValidationError]]:
     """Accept Facts
@@ -166,7 +173,7 @@ async def asyncio(
 
     Args:
         session_id (int):
-        json_body (List['ProposedFact']):
+        body (List['ProposedFact']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -179,7 +186,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
+            body=body,
             session_id=session_id,
         )
     ).parsed

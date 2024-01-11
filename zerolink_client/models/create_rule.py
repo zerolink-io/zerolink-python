@@ -28,6 +28,7 @@ class CreateRule:
         from ..models.create_rule_context import CreateRuleContext
 
         rule = self.rule
+
         context: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.context, Unset):
             context = self.context.to_dict()

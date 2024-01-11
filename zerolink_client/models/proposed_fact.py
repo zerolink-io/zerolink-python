@@ -33,11 +33,17 @@ class ProposedFact:
 
     def to_dict(self) -> Dict[str, Any]:
         subject = self.subject
+
         predicate = self.predicate
+
         object_ = self.object_
+
         saccept = self.saccept
+
         paccept = self.paccept
+
         oaccept = self.oaccept
+
         id = self.id
 
         field_dict: Dict[str, Any] = {}

@@ -16,17 +16,20 @@ def _get_kwargs(
     email: str,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
     params["name"] = name
 
     params["email"] = email
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/waitlist",
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[HTTPValidationError, WaitlistResponse]]:

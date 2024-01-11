@@ -30,7 +30,9 @@ class CreateAttribute:
         from ..models.attribute import Attribute
 
         subject = self.subject
+
         predicate = self.predicate
+
         attribute = self.attribute.to_dict()
 
         field_dict: Dict[str, Any] = {}

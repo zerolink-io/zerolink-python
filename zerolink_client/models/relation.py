@@ -30,10 +30,15 @@ class Relation:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         relation = self.relation
+
         description = self.description
+
         source = self.source
+
         source_id = self.source_id
+
         source_url = self.source_url
 
         field_dict: Dict[str, Any] = {}

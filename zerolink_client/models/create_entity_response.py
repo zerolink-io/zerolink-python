@@ -22,6 +22,7 @@ class CreateEntityResponse:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         entity = self.entity
 
         field_dict: Dict[str, Any] = {}

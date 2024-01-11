@@ -13,12 +13,14 @@ from ...types import UNSET, Response
 def _get_kwargs(
     session_id: int,
 ) -> Dict[str, Any]:
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/session/{session_id}/exists".format(
             session_id=session_id,
         ),
     }
+
+    return _kwargs
 
 
 def _parse_response(

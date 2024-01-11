@@ -24,7 +24,9 @@ class GenericEntity:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         entity = self.entity
+
         desc = self.desc
 
         field_dict: Dict[str, Any] = {}

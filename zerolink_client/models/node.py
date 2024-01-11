@@ -22,6 +22,7 @@ class Node:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         label = self.label
 
         field_dict: Dict[str, Any] = {}

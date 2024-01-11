@@ -10,10 +10,12 @@ from ...types import UNSET, Response
 
 
 def _get_kwargs() -> Dict[str, Any]:
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/user",
     }
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[CreateUser]:

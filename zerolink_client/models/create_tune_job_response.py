@@ -22,6 +22,7 @@ class CreateTuneJobResponse:
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
+
         status = self.status
 
         field_dict: Dict[str, Any] = {}

@@ -45,8 +45,11 @@ class CandidateFact:
         object_ = self.object_.to_dict()
 
         saccept = self.saccept
+
         paccept = self.paccept
+
         oaccept = self.oaccept
+
         id = self.id
 
         field_dict: Dict[str, Any] = {}
