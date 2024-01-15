@@ -16,7 +16,7 @@ tqdm = "^4.66.1"
 tenacity = "^8.2.3"
 click = "^8.1.7"
 click-completion = "^0.5.2"
-httpx = "^0.25.2"
+httpx = "^0.26.0"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["jupyter"], version = "^23.12.0"}
