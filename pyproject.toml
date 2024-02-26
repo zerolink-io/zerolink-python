@@ -28,7 +28,7 @@ mypy = "^1.8.0"
 pytest-cov = "^4.1.0"
 
 [tool.poetry.group.ingest.dependencies]
-pandas = "^2.1.4"
+pandas = "^2.2.1"
 openpyxl = "^3.1.2"
 python-docx = "^1.1.0"
 
